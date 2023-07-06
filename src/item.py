@@ -22,8 +22,7 @@ class Item:
         Рассчитывает общую стоимость конкретного товара в магазине.
         :return: Общая стоимость товара.
         """
-        self.total = float(self.price * self.quantity)
-        return self.total
+        return float(self.price * self.quantity)
 
     def apply_discount(self) -> None:
         """
