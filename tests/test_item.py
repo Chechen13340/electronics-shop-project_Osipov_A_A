@@ -5,17 +5,15 @@ from src.item import Item
 
 
 @pytest.fixture
-
-
-def properties_Item():
+def properties_item():
     return Item("Смартфон", 10000, 20)
 
 
-def test_calculate_total_price(properties_Item):
-    assert properties_Item.calculate_total_price() == 200000
+def test_calculate_total_price(properties_item):
+    assert properties_item.calculate_total_price() == 200000
 
 
-def test_apply_discount(properties_Item):
-    Item.pay_rate = 0.8
-    properties_Item.apply_discount()
-    assert properties_Item.price == 8000.0
+def test_apply_discount(properties_item):
+    properties_item.pay_rate = 0.8
+    properties_item.apply_discount()
+    assert properties_item.price == 8000.0
