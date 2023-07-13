@@ -60,3 +60,11 @@ def test_instantiate_from_csv():
     assert Item.all[1].price == '1000'
     assert Item.all[2].name == 'MacBook'
     assert Item.all[0].quantity == '1'
+
+
+def test_repr(properties_item):
+    assert repr(properties_item) == "Item('Смартфон_Lenovo_Laptop', 10000, 20)"
+
+
+def test_str(properties_item):
+    assert str(properties_item) == 'Смартфон_Lenovo_Laptop'
