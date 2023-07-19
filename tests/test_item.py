@@ -4,11 +4,17 @@ import csv
 import pytest
 
 from src.item import Item
+from src.phone import Phone
 
 
 @pytest.fixture
 def properties_item():
     return Item('Смартфон_Lenovo_Laptop', 10000, 20)
+
+
+@pytest.fixture
+def properties_phone():
+    return Phone('Смартфон_Lenovo_', 20000, 3, 3)
 
 
 def test_init_properties_item(properties_item):
@@ -68,3 +74,8 @@ def test_repr(properties_item):
 
 def test_str(properties_item):
     assert str(properties_item) == 'Смартфон_Lenovo_Laptop'
+
+
+def test_add_item_phone(properties_item, properties_phone):
+    assert properties_item + properties_phone == 23
+    assert properties_phone + properties_phone == 6
