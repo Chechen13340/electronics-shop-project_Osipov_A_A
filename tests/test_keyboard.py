@@ -29,12 +29,3 @@ def test_change_lang(properties_keyboard):
     assert properties_keyboard.language == 'RU'
     properties_keyboard.change_lang().change_lang().change_lang()
     assert properties_keyboard.language == 'EN'
-
-#
-# def test_number_of_sim_setter(properties_phone):
-#     properties_phone.number_of_sim = 4
-#     assert properties_phone.number_of_sim == 4
-#
-# def test_number_of_sim_setter_error(properties_phone):
-#     with pytest.raises(ValueError):
-#         properties_phone.number_of_sim = 0
