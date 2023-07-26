@@ -70,17 +70,15 @@ class Item:
         except FileNotFoundError:
             print('Отсутствует файл item.csv')
 
+    def calculate_total_price(self) -> float:
+        """
+        Рассчитывает общую стоимость конкретного товара в магазине.
+        :return: Общая стоимость товара.
+        """
+        return float(self.price * self.quantity)
 
-def calculate_total_price(self) -> float:
-    """
-    Рассчитывает общую стоимость конкретного товара в магазине.
-    :return: Общая стоимость товара.
-    """
-    return float(self.price * self.quantity)
-
-
-def apply_discount(self) -> None:
-    """
-    Применяет установленную скидку для конкретного товара.
-    """
-    self.price *= self.pay_rate
+    def apply_discount(self) -> None:
+        """
+        Применяет установленную скидку для конкретного товара.
+        """
+        self.price *= self.pay_rate
