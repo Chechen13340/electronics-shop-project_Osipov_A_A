@@ -1,6 +1,14 @@
 import csv
 
 
+class InstantiateCSVError(Exception):
+    def __init__(self):
+        self.message = 'Файл item.csv поврежден'
+
+    def __str__(self):
+        return self.message
+
+
 class Item:
     """
     Класс для представления товара в магазине.
@@ -26,6 +34,11 @@ class Item:
     def __str__(self):
         return self.__name
 
+    def __add__(self, other):
+        if issubclass(other.__class__, self.__class__):
+            return self.quantity + other.quantity
+        return None
+
     @property
     def name(self):
         return self.__name
@@ -45,26 +58,29 @@ class Item:
 
     @classmethod
     def instantiate_from_csv(cls):
-        with open('../src/items.csv', 'r', newline='', encoding='windows-1251') as csvfile:
-            reader = csv.DictReader(csvfile)
-            cls.all.clear()
-            for row in reader:
-                cls(**row)
+        try:
+            with open('../src/items.csv', 'r', newline='', encoding='windows-1251') as csvfile:
+                reader = csv.DictReader(csvfile)
+                cls.all.clear()
+                for row in reader:
+                    if len(row) != 3:
+                        raise InstantiateCSVError
+                    else:
+                        cls(**row)
+        except FileNotFoundError:
+            print('Отсутствует файл item.csv')
 
-    def calculate_total_price(self) -> float:
-        """
-        Рассчитывает общую стоимость конкретного товара в магазине.
-        :return: Общая стоимость товара.
-        """
-        return float(self.price * self.quantity)
 
-    def apply_discount(self) -> None:
-        """
-        Применяет установленную скидку для конкретного товара.
-        """
-        self.price *= self.pay_rate
+def calculate_total_price(self) -> float:
+    """
+    Рассчитывает общую стоимость конкретного товара в магазине.
+    :return: Общая стоимость товара.
+    """
+    return float(self.price * self.quantity)
 
-    def __add__(self, other):
-        if issubclass(other.__class__, self.__class__):
-            return self.quantity + other.quantity
-        return None
+
+def apply_discount(self) -> None:
+    """
+    Применяет установленную скидку для конкретного товара.
+    """
+    self.price *= self.pay_rate
