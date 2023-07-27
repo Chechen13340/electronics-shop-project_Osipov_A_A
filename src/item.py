@@ -1,5 +1,7 @@
 import csv
 
+from settings import CSV_PATH
+
 
 class InstantiateCSVError(Exception):
     def __init__(self):
@@ -13,6 +15,7 @@ class Item:
     """
     Класс для представления товара в магазине.
     """
+    csv_path = CSV_PATH
     pay_rate = 0.8
     all = []
 
@@ -59,7 +62,7 @@ class Item:
     @classmethod
     def instantiate_from_csv(cls):
         try:
-            with open('../src/items.csv', 'r', newline='', encoding='windows-1251') as csvfile:
+            with open(cls.csv_path, 'r', newline='') as csvfile:
                 reader = csv.DictReader(csvfile)
                 cls.all.clear()
                 for row in reader:
