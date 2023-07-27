@@ -1,9 +1,11 @@
 """Здесь надо написать тесты с использованием pytest для модуля item."""
 import csv
+from pathlib import Path
 
 import pytest
 
-from src.item import Item
+from settings import ROOT_PATH
+from src.item import Item, InstantiateCSVError
 from src.phone import Phone
 
 
@@ -79,3 +81,15 @@ def test_str(properties_item):
 def test_add_item_phone(properties_item, properties_phone):
     assert properties_item + properties_phone == 23
     assert properties_phone + properties_phone == 6
+
+
+def test_file_not_found():
+    Item.csv_path = Path.joinpath(ROOT_PATH, 'src', 'error.csv')
+    with pytest.raises(FileNotFoundError, match='Отсутствует файл item.csv'):
+        Item.instantiate_from_csv()
+
+
+def test_instantiatecsverror():
+    Item.csv_path = Path.joinpath(ROOT_PATH, 'tests', 'items_tests.csv')
+    with pytest.raises(InstantiateCSVError, match='Файл items_tests.csv поврежден'):
+        Item.instantiate_from_csv()
