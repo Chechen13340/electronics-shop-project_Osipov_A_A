@@ -91,5 +91,5 @@ def test_file_not_found():
 
 def test_instantiatecsverror():
     Item.csv_path = Path.joinpath(ROOT_PATH, 'tests', 'items_tests.csv')
-    with pytest.raises(InstantiateCSVError, match='Файл items_tests.csv поврежден'):
+    with pytest.raises(InstantiateCSVError, match='Файл item.csv поврежден'):
         Item.instantiate_from_csv()
