@@ -67,11 +67,11 @@ class Item:
                 cls.all.clear()
                 for row in reader:
                     if len(row) != 3:
-                        raise InstantiateCSVError
+                        raise InstantiateCSVError()
                     else:
                         cls(**row)
         except FileNotFoundError:
-            print('Отсутствует файл item.csv')
+            raise FileNotFoundError('Отсутствует файл item.csv')
 
     def calculate_total_price(self) -> float:
         """
